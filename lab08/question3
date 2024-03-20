@@ -1,0 +1,49 @@
+#include<iostream>
+using namespace std;
+
+class position{
+    double x;
+    double y;
+    double z;
+public:
+    position(double x, double y, double z) : x(x), y(y), z(z) {}
+    
+    void display(){
+        cout << "Position: (" << x << ", " << y << ", " << z << ")" << endl;
+    }
+};
+
+class health{
+public:
+    int health_value; // Renamed to health_value to avoid conflict with class name
+    
+    health(int health) : health_value(health) {} // Renamed constructor parameter
+    
+    void display(){
+        cout << "Health: " << health_value << endl; // Corrected member variable name
+    }
+};
+
+class character: public position, public health{
+    string name;
+public:
+    character(string name, double x, double y, double z, int health_value)
+        : position(x, y, z), health(health_value), name(name) {} // Call base class constructors
+    
+    void display(){
+        cout << "Character details are: " << endl;
+        position::display(); // Call base class display functions using scope resolution operator
+        health::display(); // Call base class display functions using scope resolution operator
+    }
+    
+    void attack(){
+        cout << name << " is attacking!" << endl;
+    }
+};
+
+int main(){
+    character C("Tanisha", 10.0, 20.0, 30.0, 40);
+    C.display();
+    C.attack(); // Corrected case of variable name
+    return 0;
+}
